@@ -46,7 +46,7 @@ Gate ghi nhận loại điểm kiểm duyệt, trạng thái, hành động cầ
 
 ## Checkpoint
 
-Checkpoint là ảnh chụp dữ liệu của run tại một bước, gồm state, tham chiếu Artifact và correlation ID. Contract này chưa lưu hoặc phục hồi dữ liệu từ database.
+Checkpoint là ảnh chụp dữ liệu của run tại một bước, gồm state, tham chiếu Artifact và correlation ID. Từ Phần 05, checkpoint có thể kèm `context_snapshot` tùy chọn chứa checksum metadata của ChannelContext. Field tùy chọn giữ tương thích với checkpoint cũ và không chứa toàn bộ nội dung Markdown.
 
 ## Audit event
 

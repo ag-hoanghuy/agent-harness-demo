@@ -61,6 +61,10 @@ COMMIT hoặc ROLLBACK cùng nhau
 
 `RuntimeStoreService.saveRunWithAudit` chỉ là transaction boundary của persistence. Nếu optimistic update conflict thì Audit Event không được insert. Nếu insert Audit Event thất bại thì thay đổi Run state và version được rollback.
 
+Từ Phần 05, Runtime Store còn cung cấp transaction cho tạo Run cùng audit và cho preflight cuối gồm Checkpoint, Run update cùng nhiều Audit Event. Business decision vẫn nằm trong Orchestrator; Runtime Store chỉ thực hiện transaction đã được yêu cầu.
+
+Context snapshot tùy chọn được lưu trong một payload JSONB tương thích ngược của cột `run_checkpoints.artifact_refs`: record cũ vẫn là mảng Artifact ID, record có snapshot là envelope gồm `artifact_refs` và `context_snapshot`. Vì schema PostgreSQL không đổi nên Part 05 không cần migration mới.
+
 ## Dữ liệu được persist trong Part 03
 
 - Harness Run

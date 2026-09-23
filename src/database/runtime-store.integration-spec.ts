@@ -256,4 +256,24 @@ describe('PostgreSQL Harness Runtime Store', () => {
 
     expect(await auditRepository.findByRunId(run.id)).toHaveLength(0);
   });
+
+  it('rollback Run mới khi RUN_CREATED audit thất bại', async () => {
+    const existingRun = await runRepository.create(createRun('run-existing'));
+    const duplicateAudit = createAuditEvent(
+      'audit-create-duplicate',
+      existingRun.id,
+    );
+    await auditRepository.append(duplicateAudit);
+
+    const newRun = createRun('run-create-should-rollback');
+    await expect(
+      runtimeStore.createRunWithAudit(newRun, {
+        ...duplicateAudit,
+        run_id: newRun.id,
+      }),
+    ).rejects.toThrow();
+
+    expect(await runRepository.findById(newRun.id)).toBeNull();
+    expect(await auditRepository.findByRunId(existingRun.id)).toHaveLength(1);
+  });
 });

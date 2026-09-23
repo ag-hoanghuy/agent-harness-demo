@@ -8,6 +8,7 @@ import {
   ChannelContext,
   LoadChannelContextOptions,
 } from './contracts/channel-context.contract.js';
+import { ChannelConfig } from './contracts/channel-config.contract.js';
 import { assertRegularFileInside } from './filesystem-safety.js';
 import { SkillLoaderService } from './skill-loader.service.js';
 
@@ -20,22 +21,17 @@ export class ContextLoaderService {
     private readonly skillLoader: SkillLoaderService,
   ) {}
 
+  async loadChannelConfig(channelId: string): Promise<ChannelConfig> {
+    const workspace = await this.channelRegistry.getChannelWorkspace(channelId);
+    return this.readChannelConfig(workspace, channelId);
+  }
+
   async loadChannelContext(
     channelId: string,
     options: LoadChannelContextOptions = {},
   ): Promise<ChannelContext> {
     const workspace = await this.channelRegistry.getChannelWorkspace(channelId);
-    await assertRegularFileInside(
-      workspace.workspacePath,
-      workspace.configPath,
-    );
-    const channel = parseChannelConfig(
-      await readFile(workspace.configPath, 'utf8'),
-    );
-
-    if (channel.channelId !== channelId) {
-      throw new ChannelConfigMismatchError(channelId, channel.channelId);
-    }
+    const channel = await this.readChannelConfig(workspace, channelId);
 
     const [rules, memory, skills] = await Promise.all([
       loadMarkdownDirectory(workspace, 'rules'),
@@ -59,5 +55,25 @@ export class ContextLoaderService {
       memory,
       effectiveAllowedTools,
     });
+  }
+
+  private async readChannelConfig(
+    workspace: Awaited<
+      ReturnType<ChannelRegistryService['getChannelWorkspace']>
+    >,
+    channelId: string,
+  ): Promise<ChannelConfig> {
+    await assertRegularFileInside(
+      workspace.workspacePath,
+      workspace.configPath,
+    );
+    const channel = parseChannelConfig(
+      await readFile(workspace.configPath, 'utf8'),
+    );
+
+    if (channel.channelId !== channelId) {
+      throw new ChannelConfigMismatchError(channelId, channel.channelId);
+    }
+    return channel;
   }
 }

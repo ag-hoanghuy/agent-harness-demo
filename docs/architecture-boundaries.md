@@ -65,3 +65,9 @@ Persistence entity là chi tiết của adapter TypeORM và không thay thế do
 Từ Phần 04, Channel Registry và Context Loader đọc knowledge đã được duyệt trong đúng một channel workspace. Loader không ghi lại `channel.yaml`, rules, skills hoặc approved memory; cũng không tạo Run, chuyển state hay gọi Agent và Tool Broker.
 
 Mỗi đường dẫn được suy ra từ thư mục gốc `channels/` và identifier đã kiểm tra. Một channel không được đọc knowledge của channel khác. PostgreSQL tiếp tục là nguồn dữ liệu chuẩn cho runtime state, còn filesystem của channel là nguồn cấu hình và knowledge đã được duyệt.
+
+## Điều phối Harness Run
+
+Từ Phần 05, Harness Run Orchestrator sở hữu các mutation `create`, `queue` và `preflight` của Harness Run. Orchestrator dùng ChannelContext và policy deterministic, còn mọi mutation quan trọng được commit cùng audit/checkpoint trong transaction PostgreSQL.
+
+Orchestrator dừng tại `RUNNING_STEP / TOPIC_RESEARCH`. Trạng thái này chỉ biểu thị Run đã sẵn sàng cho bước kế tiếp; Agent chưa được gọi và workflow sản xuất Mini M2 chưa được bắt đầu.

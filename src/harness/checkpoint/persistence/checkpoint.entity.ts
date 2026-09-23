@@ -7,6 +7,12 @@ import {
 } from 'typeorm';
 import { HarnessRunState } from '../../run/run-state.enum.js';
 import { RunStep } from '../../run/run-step.enum.js';
+import { ChannelContextSnapshot } from '../../runtime/contracts/context-snapshot.contract.js';
+
+export interface CheckpointPayloadEntity {
+  readonly artifact_refs: string[];
+  readonly context_snapshot?: ChannelContextSnapshot;
+}
 
 @Entity({ name: 'run_checkpoints' })
 @Index('IDX_run_checkpoints_run_created', ['run_id', 'created_at'])
@@ -27,7 +33,7 @@ export class CheckpointEntity {
   episode_id!: string | null;
 
   @Column({ type: 'jsonb' })
-  artifact_refs!: string[];
+  artifact_refs!: string[] | CheckpointPayloadEntity;
 
   @Column({ type: 'varchar', length: 128 })
   correlation_id!: string;

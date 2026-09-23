@@ -21,7 +21,7 @@ Xem [Ranh giới kiến trúc](docs/architecture-boundaries.md) để hiểu rõ
 - [x] Phần 02 - Định nghĩa giao tiếp cốt lõi và mô hình trạng thái
 - [x] Phần 03 - Kho lưu trữ runtime bằng PostgreSQL
 - [x] Phần 04 - Runtime của kênh và bộ nạp ngữ cảnh
-- [ ] Phần 05 - Harness Run Orchestrator
+- [x] Phần 05 - Harness Run Orchestrator
 - [ ] Phần 06 - Giao diện Agent Provider và FakeProvider
 - [ ] Phần 07 - Tool Broker
 - [ ] Phần 08 - Công cụ MCP cục bộ
@@ -41,6 +41,10 @@ Phần 03 persist trạng thái runtime của Harness nhưng không thực thi w
 ## Phạm vi Phần 04
 
 Phần 04 nạp cấu hình channel, rules, các skill được chọn và approved memory thành một `ChannelContext` chỉ đọc. Chưa có workflow execution hoặc lời gọi AI. Xem [Channel Runtime và Context Loader](docs/channel-runtime.md) để biết chi tiết.
+
+## Phạm vi Phần 05
+
+Phần 05 triển khai điều phối Harness Run deterministic. Một preflight thành công dừng tại `RUNNING_STEP / TOPIC_RESEARCH`: Run đã sẵn sàng cho component ở Phần 06 nhưng chưa có Agent hoặc production workflow nào được thực thi. Xem [Harness Run Orchestrator](docs/run-orchestrator.md) để biết chi tiết.
 
 ## Chạy trên máy cục bộ
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, In, Not, Repository } from 'typeorm';
+import { EntityManager, In, Repository } from 'typeorm';
 import { ChannelId, RunId } from '../../../contracts/ids.js';
+import { ACTIVE_RUN_STATES } from '../active-run-states.js';
 import { HarnessRun } from '../run.contract.js';
 import { RunNotFoundError, RunVersionConflictError } from '../run.errors.js';
 import { RunRepository } from '../run.repository.js';
-import { HarnessRunState } from '../run-state.enum.js';
 import { RunEntity } from './run.entity.js';
 import { RunMapper } from './run.mapper.js';
 
@@ -67,9 +67,7 @@ export class TypeOrmRunRepository implements RunRepository {
     const entities = await this.entities.find({
       where: {
         channel_id: channelId,
-        state: Not(
-          In([HarnessRunState.COMPLETED, HarnessRunState.FAILED_FINAL]),
-        ),
+        state: In([...ACTIVE_RUN_STATES]),
       },
       order: { created_at: 'DESC' },
     });

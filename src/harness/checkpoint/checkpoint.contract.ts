@@ -8,6 +8,7 @@ import {
 } from '../../contracts/ids.js';
 import { HarnessRunState } from '../run/run-state.enum.js';
 import { RunStep } from '../run/run-step.enum.js';
+import { ChannelContextSnapshot } from '../runtime/contracts/context-snapshot.contract.js';
 
 export interface Checkpoint {
   id: CheckpointId;
@@ -16,6 +17,7 @@ export interface Checkpoint {
   run_state: HarnessRunState;
   episode_id?: EpisodeId;
   artifact_refs: readonly ArtifactId[];
+  context_snapshot?: ChannelContextSnapshot;
   correlation_id: CorrelationId;
   created_at: string;
   schema_version: typeof CHECKPOINT_SCHEMA_VERSION;
