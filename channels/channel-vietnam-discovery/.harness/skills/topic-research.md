@@ -1,30 +1,30 @@
-# Topic Research
+# Nghiên cứu chủ đề
 
-## Purpose
+## Mục đích
 
-Research an evidence-based topic suitable for the Vietnam travel and culture demo channel.
+Nghiên cứu một chủ đề dựa trên bằng chứng, phù hợp với kênh demo về du lịch và văn hóa Việt Nam.
 
-## Input
+## Đầu vào
 
-- A topic seed or editorial question.
-- The current channel rules and approved memory.
+- Một ý tưởng chủ đề ban đầu hoặc câu hỏi biên tập.
+- Các quy tắc hiện tại của kênh và bộ nhớ đã được phê duyệt.
 
-## Procedure
+## Quy trình
 
-1. Review the topic seed against the channel's editorial scope.
-2. Search for available assets that can support the topic.
-3. Review recent analytics for relevant audience signals.
-4. Summarize the evidence, uncertainties, and a recommended topic angle.
+1. Đối chiếu ý tưởng chủ đề ban đầu với phạm vi biên tập của kênh.
+2. Tìm các tài nguyên sẵn có có thể hỗ trợ chủ đề.
+3. Xem dữ liệu phân tích gần đây để tìm các tín hiệu liên quan từ khán giả.
+4. Tóm tắt bằng chứng, các điểm chưa chắc chắn và góc tiếp cận được đề xuất.
 
-## Allowed Tools
+## Công cụ được phép
 
 - `search_assets`
 - `get_recent_analytics`
 
-## Output
+## Đầu ra
 
-A concise research note containing the proposed topic, supporting evidence, available asset references, and open questions.
+Một bản ghi chú nghiên cứu ngắn gọn, gồm chủ đề đề xuất, bằng chứng hỗ trợ, tham chiếu đến các tài nguyên sẵn có và những câu hỏi còn mở.
 
-## Error / Escalation
+## Lỗi và chuyển cấp xử lý
 
-Stop and escalate when evidence is insufficient, required assets are unavailable, a tool fails repeatedly, or the request conflicts with channel rules. Do not invent evidence or bypass tool permissions.
+Dừng và chuyển cấp xử lý khi bằng chứng không đủ, tài nguyên cần thiết không tồn tại, công cụ lỗi nhiều lần hoặc yêu cầu xung đột với quy tắc của kênh. Không được tự tạo bằng chứng hoặc vượt qua quyền sử dụng công cụ.

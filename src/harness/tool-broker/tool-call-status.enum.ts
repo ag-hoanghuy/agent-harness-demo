@@ -1,0 +1,8 @@
+export enum ToolCallStatus {
+  REQUESTED = 'REQUESTED',
+  ALLOWED = 'ALLOWED',
+  DENIED = 'DENIED',
+  RUNNING = 'RUNNING',
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+}

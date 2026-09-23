@@ -1,47 +1,51 @@
-# Agent Harness Demo
+# Bản demo Agent Harness
 
-## Goal
+## Mục tiêu
 
-This repository is a learning demo of a Local Agent Harness for one content channel. Part 01 bootstraps a NestJS application and records the intended architecture without implementing runtime or business behavior.
+Kho mã này là dự án học tập, minh họa một Local Agent Harness dành cho một kênh nội dung. Phần 01 khởi tạo ứng dụng NestJS và ghi lại kiến trúc dự kiến, chưa triển khai môi trường thực thi hoặc logic nghiệp vụ.
 
-## Architecture Principles
+## Nguyên tắc kiến trúc
 
-- The Harness controls workflow execution, runtime lifecycle, policy, and permissions.
-- The Agent reasons only within its assigned task; it does not mutate workflow state or approve gates.
-- Mini M2 owns the production workflow, gates, artifacts, and business validation.
-- Tool access will go through the Tool Broker.
-- PostgreSQL will be added in a later part as the runtime source of truth.
-- M1 and M4 are not implemented yet; later work will begin with adapters or mocks.
+- Harness kiểm soát việc thực thi quy trình, vòng đời runtime, chính sách và quyền hạn.
+- Agent chỉ suy luận trong nhiệm vụ được giao; Agent không thay đổi trạng thái quy trình hoặc phê duyệt Gate.
+- Mini M2 sở hữu quy trình sản xuất, Gate, Artifact và việc kiểm tra nghiệp vụ.
+- Mọi truy cập công cụ sau này sẽ đi qua Tool Broker.
+- PostgreSQL sẽ được bổ sung ở phần sau và đóng vai trò nguồn dữ liệu chuẩn cho trạng thái runtime.
+- M1 và M4 hiện chưa được triển khai; các phần sau sẽ bắt đầu bằng bộ chuyển đổi (adapter) hoặc bản mô phỏng (mock).
 
-See [Architecture Boundaries](docs/architecture-boundaries.md) for the ownership model.
+Xem [Ranh giới kiến trúc](docs/architecture-boundaries.md) để hiểu rõ mô hình sở hữu.
 
-## Current Progress
+## Tiến độ hiện tại
 
-- [x] Part 01 - Bootstrap & Architecture Skeleton
-- [ ] Part 02 - Core Contracts & State Models
-- [ ] Part 03 - PostgreSQL Runtime Store
-- [ ] Part 04 - Channel Runtime & Context Loader
-- [ ] Part 05 - Harness Run Orchestrator
-- [ ] Part 06 - Agent Provider Interface + FakeProvider
-- [ ] Part 07 - Tool Broker
-- [ ] Part 08 - MCP Local Tools
-- [ ] Part 09 - Mini M2 + Gate 1
-- [ ] Part 10 - Gemini Provider
-- [ ] Part 11 - Checkpoint / Pause / Resume / Recovery
-- [ ] Part 12 - End-to-End Demo
+- [x] Phần 01 - Khởi tạo dự án và bộ khung kiến trúc
+- [x] Phần 02 - Định nghĩa giao tiếp cốt lõi và mô hình trạng thái
+- [ ] Phần 03 - Kho lưu trữ runtime bằng PostgreSQL
+- [ ] Phần 04 - Runtime của kênh và bộ nạp ngữ cảnh
+- [ ] Phần 05 - Harness Run Orchestrator
+- [ ] Phần 06 - Giao diện Agent Provider và FakeProvider
+- [ ] Phần 07 - Tool Broker
+- [ ] Phần 08 - Công cụ MCP cục bộ
+- [ ] Phần 09 - Mini M2 và Gate 1
+- [ ] Phần 10 - Gemini Provider
+- [ ] Phần 11 - Checkpoint, tạm dừng, tiếp tục và khôi phục
+- [ ] Phần 12 - Demo đầu-cuối
 
-## Run Locally
+## Phạm vi Phần 02
 
-Requirements: Node.js 22 or newer and npm.
+Phần 02 chỉ bổ sung các contract và mô hình trạng thái. Chưa triển khai cơ chế điều phối runtime hoặc persistence. Xem [Contract cốt lõi](docs/core-contracts.md) để biết chi tiết.
+
+## Chạy trên máy cục bộ
+
+Yêu cầu: Node.js 22 trở lên và npm.
 
 ```bash
 npm install
 npm run start:dev
 ```
 
-The application listens on port `3000` by default. Override it by setting the `APP_PORT` environment variable. The sample contract is documented in `.env.example`; Part 01 does not load `.env` files automatically.
+Ứng dụng mặc định lắng nghe tại cổng `3000`. Có thể thay đổi bằng biến môi trường `APP_PORT`. Cấu hình mẫu được ghi trong `.env.example`; Phần 01 chưa tự động nạp tệp `.env`.
 
-Request `GET http://localhost:3000/` to receive:
+Gửi yêu cầu `GET http://localhost:3000/` để nhận kết quả:
 
 ```json
 {
@@ -51,7 +55,7 @@ Request `GET http://localhost:3000/` to receive:
 }
 ```
 
-## Verification
+## Kiểm tra dự án
 
 ```bash
 npm run lint

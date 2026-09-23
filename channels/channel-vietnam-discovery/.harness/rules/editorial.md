@@ -1,5 +1,5 @@
-# Editorial Rules
+# Quy tắc biên tập
 
-- This demo channel covers travel and culture in Vietnam.
-- Every factual content claim must be grounded in available evidence.
-- Content must never be published automatically; it requires the appropriate production gate.
+- Kênh demo này khai thác chủ đề du lịch và văn hóa Việt Nam.
+- Mọi thông tin mang tính sự thật trong nội dung phải dựa trên bằng chứng sẵn có.
+- Không được tự động xuất bản nội dung; nội dung phải đi qua Gate sản xuất phù hợp.

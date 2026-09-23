@@ -1,7 +1,7 @@
-# Approved Knowledge
+# Tri thức đã được phê duyệt
 
-This file is approved memory for the demo channel. A future Agent may read it but must never write to or overwrite it directly.
+Đây là bộ nhớ đã được phê duyệt dành cho kênh demo. Agent sau này chỉ được phép đọc, không được trực tiếp ghi hoặc ghi đè tệp này.
 
-- The channel focuses on travel and cultural discovery in Vietnam.
-- Example coverage areas include regional food traditions, historic places, and local crafts.
-- All episode claims still require task-specific evidence before use.
+- Kênh tập trung vào du lịch và khám phá văn hóa Việt Nam.
+- Các chủ đề mẫu gồm văn hóa ẩm thực vùng miền, địa danh lịch sử và nghề thủ công địa phương.
+- Mọi nhận định trong tập nội dung vẫn cần bằng chứng phù hợp với nhiệm vụ trước khi được sử dụng.

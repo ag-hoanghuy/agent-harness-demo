@@ -14,8 +14,8 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return the Part 01 status', () => {
+  describe('endpoint gốc', () => {
+    it('trả về trạng thái của Phần 01', () => {
       expect(appController.getStatus()).toEqual({
         name: 'agent-harness-demo',
         status: 'ok',

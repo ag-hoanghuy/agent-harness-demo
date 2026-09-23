@@ -1,5 +1,5 @@
-# Footage Rules
+# Quy tắc sử dụng footage
 
-- Select only assets whose status is `available`.
-- Do not use an asset while its cooldown is active.
-- Do not access file storage directly; use only the tools granted to the task.
+- Chỉ chọn tài nguyên có trạng thái `available`.
+- Không sử dụng tài nguyên khi thời gian chờ (cooldown) vẫn còn hiệu lực.
+- Không truy cập trực tiếp vào kho lưu trữ tệp; chỉ sử dụng các công cụ được cấp cho nhiệm vụ.

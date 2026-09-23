@@ -1,9 +1,9 @@
-# Creative Brief
+# Tạo bản định hướng sáng tạo
 
-Create a concise creative brief from approved topic research. The brief must contain:
+Tạo một bản định hướng sáng tạo (creative brief) ngắn gọn từ kết quả nghiên cứu chủ đề đã được phê duyệt. Bản định hướng phải gồm:
 
-- `title`: a clear working title for the episode.
-- `hook`: the opening idea that earns audience attention without overstating the evidence.
-- `thumbnail_concept`: a visual direction based only on assets that are available for use.
+- `title`: tiêu đề làm việc rõ ràng cho tập nội dung.
+- `hook`: ý tưởng mở đầu thu hút sự chú ý nhưng không diễn giải bằng chứng quá mức.
+- `thumbnail_concept`: định hướng hình ảnh chỉ dựa trên các tài nguyên được phép sử dụng.
 
-The output is a proposal for review. It does not approve a Gate or publish content.
+Đầu ra chỉ là đề xuất để xem xét. Đầu ra này không phê duyệt Gate và không xuất bản nội dung.

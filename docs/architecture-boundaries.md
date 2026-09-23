@@ -1,13 +1,13 @@
-# Architecture Boundaries
+# Ranh giới kiến trúc
 
-Part 01 establishes ownership boundaries only. It does not implement orchestration, integrations, persistence, or business workflows.
+Phần 01 chỉ thiết lập ranh giới sở hữu. Phần này chưa triển khai cơ chế điều phối, tích hợp, lưu trữ bền vững hoặc quy trình nghiệp vụ.
 
 ```text
-Operator
+Người vận hành
    ↓
 Harness
    ↓
-Channel Runtime
+Runtime của kênh
    ├── Agent
    │    ↓
    │ Tool Broker
@@ -17,37 +17,37 @@ Channel Runtime
    └── Mini M2
 ```
 
-## Harness owns
+## Harness sở hữu
 
 - `run_id`
-- Run lifecycle
+- Vòng đời của run
 - Policy
-- Pause, resume, and stop controls
-- Retry behavior
-- Checkpoints
-- Tool permissions
-- Audit records
+- Các thao tác tạm dừng, tiếp tục và dừng
+- Cơ chế retry
+- Checkpoint
+- Quyền sử dụng công cụ
+- Bản ghi audit
 
-The Harness Run Orchestrator coordinates harness runs. It is not the Mini M2 Production Orchestrator.
+Harness Run Orchestrator điều phối các run của Harness. Thành phần này không phải là Mini M2 Production Orchestrator.
 
-## Mini M2 owns
+## Mini M2 sở hữu
 
 - `episode_id`
-- Production workflow and state
-- Gates
-- Artifacts
-- Business validation
+- Quy trình và trạng thái sản xuất
+- Gate
+- Artifact
+- Việc kiểm tra nghiệp vụ
 
-Mini M2 does not own harness run lifecycle or runtime permissions.
+Mini M2 không sở hữu vòng đời run của Harness hoặc quyền hạn runtime.
 
-## Agent boundary
+## Ranh giới của Agent
 
-The Agent performs reasoning only within an assigned task. It does not directly change workflow state, approve a Gate, access a database or storage, run arbitrary shell commands, or invoke workers.
+Agent chỉ thực hiện suy luận trong nhiệm vụ được giao. Agent không trực tiếp thay đổi trạng thái quy trình, phê duyệt Gate, truy cập cơ sở dữ liệu hoặc kho lưu trữ, chạy lệnh shell tùy ý hay gọi tiến trình worker.
 
-## MCP boundary
+## Ranh giới của MCP
 
-MCP is an integration protocol. It is neither the Agent nor the Harness. Future tool integrations will be mediated by the Tool Broker.
+MCP là một giao thức tích hợp. MCP không phải Agent và cũng không phải Harness. Các tích hợp công cụ sau này sẽ được kiểm soát thông qua Tool Broker.
 
-## M1 and M4 boundary
+## Ranh giới của M1 và M4
 
-M1 and M4 are not implemented in Part 01. Later parts will begin with adapters or mocks before any real integration is introduced.
+M1 và M4 chưa được triển khai trong Phần 01. Các phần sau sẽ bắt đầu bằng bộ chuyển đổi (adapter) hoặc bản mô phỏng (mock) trước khi bổ sung tích hợp thật.
