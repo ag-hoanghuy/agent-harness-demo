@@ -7,7 +7,9 @@ export default defineConfig({
   test: {
     globals: true,
     root: './',
-    include: ['**/*.spec.ts'],
-    exclude: ['**/*.integration-spec.ts', '**/*.e2e-spec.ts'],
+    include: ['**/*.integration-spec.ts'],
+    fileParallelism: false,
+    hookTimeout: 30_000,
+    testTimeout: 30_000,
   },
 });

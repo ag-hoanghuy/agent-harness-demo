@@ -51,3 +51,11 @@ MCP là một giao thức tích hợp. MCP không phải Agent và cũng không 
 ## Ranh giới của M1 và M4
 
 M1 và M4 chưa được triển khai trong Phần 01. Các phần sau sẽ bắt đầu bằng bộ chuyển đổi (adapter) hoặc bản mô phỏng (mock) trước khi bổ sung tích hợp thật.
+
+## Nguồn dữ liệu chuẩn của runtime
+
+Từ Phần 03, PostgreSQL là source of truth cho Harness Run runtime state, Checkpoint, Audit Event và bản ghi Tool Call. Redis và BullMQ chưa được sử dụng.
+
+Channel workspace không lưu runtime state. Các tệp trong channel chỉ cung cấp config, rules, skills và approved memory.
+
+Persistence entity là chi tiết của adapter TypeORM và không thay thế domain contract. Episode, Gate, Artifact và Production State của Mini M2 chưa được persist trong Phần 03.
