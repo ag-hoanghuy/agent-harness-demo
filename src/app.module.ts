@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { DatabaseModule } from './database/database.module.js';
 import { RunOrchestrationModule } from './harness/orchestrator/run-orchestration.module.js';
 import { HarnessRuntimeModule } from './harness/runtime/harness-runtime.module.js';
+import { ToolBrokerModule } from './harness/tool-broker/tool-broker.module.js';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { HarnessRuntimeModule } from './harness/runtime/harness-runtime.module.j
     DatabaseModule,
     HarnessRuntimeModule,
     RunOrchestrationModule,
+    ToolBrokerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -14,11 +14,15 @@ export interface ToolDefinition {
   name: string;
   schema_version: typeof TOOL_DEFINITION_SCHEMA_VERSION;
   required_permissions: readonly string[];
+  input_schema: JsonSchema;
+  output_schema: JsonSchema;
   timeout_ms: number;
   max_retries: number;
   idempotent: boolean;
   side_effect: boolean;
 }
+
+export type JsonSchema = Readonly<Record<string, unknown>>;
 
 export interface ToolCallError {
   code: string;

@@ -42,7 +42,7 @@ Gate ghi nhận loại điểm kiểm duyệt, trạng thái, hành động cầ
 
 ## Tool contract
 
-`ToolDefinition` mô tả quyền cần thiết, timeout, retry, tính idempotent và khả năng tạo side effect. `ToolCall` ghi nhận một yêu cầu gọi công cụ cùng input, output hoặc lỗi. Không có logic thực thi Tool Broker trong Part 02.
+`ToolDefinition` mô tả quyền cần thiết, timeout, retry, tính idempotent và khả năng tạo side effect. Từ Part 07, contract `tool-definition-1.1` bổ sung JSON Schema cho input/output để Tool Broker validate trước và sau execution. `ToolCall` ghi nhận một yêu cầu gọi công cụ cùng input, output hoặc lỗi.
 
 ## Checkpoint
 

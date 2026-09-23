@@ -63,6 +63,8 @@ COMMIT hoặc ROLLBACK cùng nhau
 
 Từ Phần 05, Runtime Store còn cung cấp transaction cho tạo Run cùng audit và cho preflight cuối gồm Checkpoint, Run update cùng nhiều Audit Event. Business decision vẫn nằm trong Orchestrator; Runtime Store chỉ thực hiện transaction đã được yêu cầu.
 
+Từ Phần 07, Runtime Store cung cấp transaction tạo/cập nhật ToolCall cùng Audit Event. Unique index trên `(run_id, tool_name, correlation_id)` biến PostgreSQL thành source of truth cho idempotency của một tool invocation; Broker không dựa vào in-memory lock để chống execute trùng.
+
 Context snapshot tùy chọn được lưu trong một payload JSONB tương thích ngược của cột `run_checkpoints.artifact_refs`: record cũ vẫn là mảng Artifact ID, record có snapshot là envelope gồm `artifact_refs` và `context_snapshot`. Vì schema PostgreSQL không đổi nên Part 05 không cần migration mới.
 
 ## Dữ liệu được persist trong Part 03

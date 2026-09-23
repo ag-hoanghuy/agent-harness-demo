@@ -89,7 +89,7 @@ const createToolCall = (id: string, runId: RunId): ToolCall => ({
   tool_name: 'search_assets',
   status: ToolCallStatus.REQUESTED,
   input: { query: 'Huế' },
-  correlation_id: correlationId,
+  correlation_id: asCorrelationId(`correlation-${id}`),
   created_at: '2026-09-23T00:01:00.000Z',
   schema_version: TOOL_CALL_SCHEMA_VERSION,
 });

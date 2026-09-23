@@ -4,6 +4,7 @@ import { CheckpointEntity } from '../harness/checkpoint/persistence/checkpoint.e
 import { RunEntity } from '../harness/run/persistence/run.entity.js';
 import { ToolCallEntity } from '../harness/tool-broker/persistence/tool-call.entity.js';
 import { CreateHarnessRuntimeTables1790121600000 } from './migrations/1790121600000-CreateHarnessRuntimeTables.js';
+import { AddToolCallIdempotency1790208000000 } from './migrations/1790208000000-AddToolCallIdempotency.js';
 import { DatabaseConfigurationError } from './database.errors.js';
 
 const readRequired = (environment: NodeJS.ProcessEnv, key: string): string => {
@@ -38,7 +39,10 @@ export function createTypeOrmOptions(
     username: readRequired(environment, 'POSTGRES_USER'),
     password: readRequired(environment, 'POSTGRES_PASSWORD'),
     entities: [RunEntity, CheckpointEntity, AuditEventEntity, ToolCallEntity],
-    migrations: [CreateHarnessRuntimeTables1790121600000],
+    migrations: [
+      CreateHarnessRuntimeTables1790121600000,
+      AddToolCallIdempotency1790208000000,
+    ],
     migrationsTableName: 'typeorm_migrations',
     synchronize: false,
     migrationsRun: false,

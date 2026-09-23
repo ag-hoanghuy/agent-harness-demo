@@ -1,4 +1,4 @@
-import { RunId, ToolCallId } from '../../contracts/ids.js';
+import { CorrelationId, RunId, ToolCallId } from '../../contracts/ids.js';
 import { ToolCall, ToolCallError } from './tool.contract.js';
 import { ToolCallStatus } from './tool-call-status.enum.js';
 
@@ -16,4 +16,9 @@ export interface ToolCallRepository {
   updateStatus(id: ToolCallId, update: ToolCallStatusUpdate): Promise<ToolCall>;
   findById(id: ToolCallId): Promise<ToolCall | null>;
   findByRunId(runId: RunId): Promise<readonly ToolCall[]>;
+  findByInvocation(
+    runId: RunId,
+    toolName: string,
+    correlationId: CorrelationId,
+  ): Promise<ToolCall | null>;
 }

@@ -71,3 +71,7 @@ Mỗi đường dẫn được suy ra từ thư mục gốc `channels/` và iden
 Từ Phần 05, Harness Run Orchestrator sở hữu các mutation `create`, `queue` và `preflight` của Harness Run. Orchestrator dùng ChannelContext và policy deterministic, còn mọi mutation quan trọng được commit cùng audit/checkpoint trong transaction PostgreSQL.
 
 Orchestrator dừng tại `RUNNING_STEP / TOPIC_RESEARCH`. Trạng thái này chỉ biểu thị Run đã sẵn sàng cho bước kế tiếp; Agent chưa được gọi và workflow sản xuất Mini M2 chưa được bắt đầu.
+
+## Thực thi tool có kiểm soát
+
+Từ Phần 07, mọi tool request đi qua Tool Broker. Broker kiểm tra Run/AgentTask/ChannelContext cùng scope, giao của hai allowlist, JSON Schema, timeout, retry và idempotency trước khi gọi `ToolExecutor`. ToolCall và audit được persist trong PostgreSQL; Broker không thay đổi Run state. `ToolExecutor` vẫn chỉ là abstraction, chưa có MCP adapter hoặc external tool thật.

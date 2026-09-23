@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QueryDeepPartialEntity, Repository } from 'typeorm';
-import { RunId, ToolCallId } from '../../../contracts/ids.js';
+import { EntityManager, QueryDeepPartialEntity, Repository } from 'typeorm';
+import { CorrelationId, RunId, ToolCallId } from '../../../contracts/ids.js';
 import { ToolCall } from '../tool.contract.js';
 import { ToolCallNotFoundError } from '../tool-call.errors.js';
 import {
@@ -17,6 +17,10 @@ export class TypeOrmToolCallRepository implements ToolCallRepository {
     @InjectRepository(ToolCallEntity)
     private readonly entities: Repository<ToolCallEntity>,
   ) {}
+
+  static fromManager(manager: EntityManager): TypeOrmToolCallRepository {
+    return new TypeOrmToolCallRepository(manager.getRepository(ToolCallEntity));
+  }
 
   async create(toolCall: ToolCall): Promise<ToolCall> {
     await this.entities.insert(
@@ -55,6 +59,19 @@ export class TypeOrmToolCallRepository implements ToolCallRepository {
       order: { created_at: 'ASC', id: 'ASC' },
     });
     return entities.map((entity) => ToolCallMapper.toDomain(entity));
+  }
+
+  async findByInvocation(
+    runId: RunId,
+    toolName: string,
+    correlationId: CorrelationId,
+  ): Promise<ToolCall | null> {
+    const entity = await this.entities.findOneBy({
+      run_id: runId,
+      tool_name: toolName,
+      correlation_id: correlationId,
+    });
+    return entity === null ? null : ToolCallMapper.toDomain(entity);
   }
 
   private async getRequired(id: ToolCallId): Promise<ToolCall> {

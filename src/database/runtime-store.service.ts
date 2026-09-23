@@ -6,6 +6,13 @@ import { Checkpoint } from '../harness/checkpoint/checkpoint.contract.js';
 import { TypeOrmCheckpointRepository } from '../harness/checkpoint/persistence/typeorm-checkpoint.repository.js';
 import { HarnessRun } from '../harness/run/run.contract.js';
 import { TypeOrmRunRepository } from '../harness/run/persistence/typeorm-run.repository.js';
+import { TypeOrmToolCallRepository } from '../harness/tool-broker/persistence/typeorm-tool-call.repository.js';
+import type {
+  ToolCallRepository,
+  ToolCallStatusUpdate,
+} from '../harness/tool-broker/tool-call.repository.js';
+import type { ToolCall } from '../harness/tool-broker/tool.contract.js';
+import type { ToolCallId } from '../contracts/ids.js';
 
 @Injectable()
 export class RuntimeStoreService {
@@ -71,6 +78,58 @@ export class RuntimeStoreService {
       }
 
       return savedRun;
+    });
+  }
+
+  async createToolCallWithAudit(
+    toolCall: ToolCall,
+    auditEvent: AuditEvent,
+  ): Promise<ToolCall> {
+    return this.dataSource.transaction(async (manager) => {
+      const toolCallRepository = TypeOrmToolCallRepository.fromManager(manager);
+      const auditRepository = TypeOrmAuditEventRepository.fromManager(manager);
+
+      const savedToolCall = await toolCallRepository.create(toolCall);
+      await auditRepository.append(auditEvent);
+
+      return savedToolCall;
+    });
+  }
+
+  async updateToolCall(
+    toolCallId: ToolCallId,
+    update: ToolCallStatusUpdate,
+  ): Promise<ToolCall> {
+    return this.updateToolCallWithAudits(toolCallId, update, []);
+  }
+
+  async updateToolCallWithAudit(
+    toolCallId: ToolCallId,
+    update: ToolCallStatusUpdate,
+    auditEvent: AuditEvent,
+  ): Promise<ToolCall> {
+    return this.updateToolCallWithAudits(toolCallId, update, [auditEvent]);
+  }
+
+  async updateToolCallWithAudits(
+    toolCallId: ToolCallId,
+    update: ToolCallStatusUpdate,
+    auditEvents: readonly AuditEvent[],
+  ): Promise<ToolCall> {
+    return this.dataSource.transaction(async (manager) => {
+      const toolCallRepository: ToolCallRepository =
+        TypeOrmToolCallRepository.fromManager(manager);
+      const auditRepository = TypeOrmAuditEventRepository.fromManager(manager);
+
+      const savedToolCall = await toolCallRepository.updateStatus(
+        toolCallId,
+        update,
+      );
+      for (const auditEvent of auditEvents) {
+        await auditRepository.append(auditEvent);
+      }
+
+      return savedToolCall;
     });
   }
 }

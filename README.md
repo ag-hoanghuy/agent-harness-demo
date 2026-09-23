@@ -23,7 +23,7 @@ Xem [Ranh giới kiến trúc](docs/architecture-boundaries.md) để hiểu rõ
 - [x] Phần 04 - Runtime của kênh và bộ nạp ngữ cảnh
 - [x] Phần 05 - Harness Run Orchestrator
 - [x] Phần 06 - Giao diện Agent Provider và FakeProvider
-- [ ] Phần 07 - Tool Broker
+- [x] Phần 07 - Tool Broker
 - [ ] Phần 08 - Công cụ MCP cục bộ
 - [ ] Phần 09 - Mini M2 và Gate 1
 - [ ] Phần 10 - Gemini Provider
@@ -49,6 +49,10 @@ Phần 05 triển khai điều phối Harness Run deterministic. Một preflight
 ## Phạm vi Phần 06
 
 Part 06 introduces Agent Runtime and a deterministic FakeProvider. No real AI API or tool execution is used yet. Agent Runtime chỉ trả về `AgentResult` có cấu trúc; nó không persist kết quả và không thay đổi state hoặc step của Harness Run. Xem [Agent Runtime và FakeProvider](docs/agent-runtime.md) để biết chi tiết.
+
+## Phạm vi Phần 07
+
+Part 07 introduces controlled tool execution through Tool Broker. No MCP or real external tool is connected yet. Broker kiểm tra trusted scope, authorization, JSON Schema, timeout, retry và idempotency; ToolCall cùng audit được persist atomically trong PostgreSQL. Xem [Tool Broker](docs/tool-broker.md) để biết chi tiết.
 
 ## Chạy trên máy cục bộ
 
