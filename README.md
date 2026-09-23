@@ -20,7 +20,7 @@ Xem [Ranh giới kiến trúc](docs/architecture-boundaries.md) để hiểu rõ
 - [x] Phần 01 - Khởi tạo dự án và bộ khung kiến trúc
 - [x] Phần 02 - Định nghĩa giao tiếp cốt lõi và mô hình trạng thái
 - [x] Phần 03 - Kho lưu trữ runtime bằng PostgreSQL
-- [ ] Phần 04 - Runtime của kênh và bộ nạp ngữ cảnh
+- [x] Phần 04 - Runtime của kênh và bộ nạp ngữ cảnh
 - [ ] Phần 05 - Harness Run Orchestrator
 - [ ] Phần 06 - Giao diện Agent Provider và FakeProvider
 - [ ] Phần 07 - Tool Broker
@@ -37,6 +37,10 @@ Phần 02 chỉ bổ sung các contract và mô hình trạng thái. Chưa tri�
 ## Phạm vi Phần 03
 
 Phần 03 persist trạng thái runtime của Harness nhưng không thực thi workflow. PostgreSQL hiện lưu Harness Run, Checkpoint, Audit Event và Tool Call. Xem [PostgreSQL Runtime Store](docs/runtime-store.md) để biết chi tiết.
+
+## Phạm vi Phần 04
+
+Phần 04 nạp cấu hình channel, rules, các skill được chọn và approved memory thành một `ChannelContext` chỉ đọc. Chưa có workflow execution hoặc lời gọi AI. Xem [Channel Runtime và Context Loader](docs/channel-runtime.md) để biết chi tiết.
 
 ## Chạy trên máy cục bộ
 

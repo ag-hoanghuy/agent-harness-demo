@@ -59,3 +59,9 @@ Từ Phần 03, PostgreSQL là source of truth cho Harness Run runtime state, Ch
 Channel workspace không lưu runtime state. Các tệp trong channel chỉ cung cấp config, rules, skills và approved memory.
 
 Persistence entity là chi tiết của adapter TypeORM và không thay thế domain contract. Episode, Gate, Artifact và Production State của Mini M2 chưa được persist trong Phần 03.
+
+## Channel knowledge chỉ đọc
+
+Từ Phần 04, Channel Registry và Context Loader đọc knowledge đã được duyệt trong đúng một channel workspace. Loader không ghi lại `channel.yaml`, rules, skills hoặc approved memory; cũng không tạo Run, chuyển state hay gọi Agent và Tool Broker.
+
+Mỗi đường dẫn được suy ra từ thư mục gốc `channels/` và identifier đã kiểm tra. Một channel không được đọc knowledge của channel khác. PostgreSQL tiếp tục là nguồn dữ liệu chuẩn cho runtime state, còn filesystem của channel là nguồn cấu hình và knowledge đã được duyệt.
