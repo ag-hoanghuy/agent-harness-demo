@@ -79,7 +79,7 @@ MCP Adapter
 MCP Server
 ```
 
-Part 07 chỉ dùng test double deterministic; không đăng ký fake production tool và chưa có MCP.
+Part 07 chỉ dùng test double deterministic. Từ Part 08, production module đăng ký ba `McpToolExecutor` read-only; Broker vẫn chỉ phụ thuộc abstraction và không biết MCP transport hay mock business data.
 
 ## Authorization
 
@@ -158,6 +158,12 @@ Migration Part 07 tạo unique index cho bộ ba này. Broker tra PostgreSQL tr�
 
 Giới hạn hiện tại: Broker trả ngay ToolCall `REQUESTED`, `ALLOWED` hoặc `RUNNING` nếu một duplicate tới trong lúc invocation đầu còn xử lý; Part 07 chưa có distributed waiting/recovery. Với `FAILED`, retry budget đã được dùng trong invocation gốc; muốn tạo một invocation mới, caller phải dùng correlation ID mới. Recovery xuyên process thuộc phần recovery sau này.
 
+## Tích hợp Local MCP từ Part 08
+
+Part 08 không thay đổi public API hoặc authorization flow của Broker. `McpToolRegistrationService` đưa `ToolDefinition + McpToolExecutor` vào registry; executor gọi Local MCP Server qua stdio sau khi Broker đã cho phép. MCP error được normalize thành `ToolExecutionError`, còn timeout/retry tiếp tục do Broker sở hữu.
+
+MCP server advertise tool không có nghĩa Agent được phép dùng tool. `AgentTask.allowed_tools ∩ ChannelContext.effectiveAllowedTools` vẫn là điều kiện bắt buộc trước execution. Xem [Local MCP Tools](local-mcp-tools.md).
+
 ## Ranh giới Part 07
 
-Tool Broker không gọi MCP, network, shell, filesystem hoặc real external tool; không nối tool-calling loop vào FakeProvider; không tạo Mini M2, Gate hoặc workflow transition. Nó chỉ trả ToolCall có cấu trúc và giữ Run nguyên trạng `RUNNING_STEP / TOPIC_RESEARCH`.
+Tool Broker không gọi network, shell, filesystem hoặc real external tool trực tiếp; không nối tool-calling loop vào FakeProvider; không tạo Mini M2, Gate hoặc workflow transition. MCP của Part 08 chỉ xuất hiện sau abstraction `ToolExecutor`. Broker vẫn chỉ trả ToolCall có cấu trúc và giữ Run nguyên trạng `RUNNING_STEP / TOPIC_RESEARCH`.

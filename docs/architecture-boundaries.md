@@ -46,7 +46,9 @@ Agent chỉ thực hiện suy luận trong nhiệm vụ được giao. Agent kh�
 
 ## Ranh giới của MCP
 
-MCP là một giao thức tích hợp. MCP không phải Agent và cũng không phải Harness. Các tích hợp công cụ sau này sẽ được kiểm soát thông qua Tool Broker.
+MCP là một giao thức tích hợp. MCP không phải Agent và cũng không phải Harness. Từ Part 08, Local MCP Server cung cấp ba capability mock qua stdio, nhưng Agent không gọi server trực tiếp. Mọi request vẫn đi qua Tool Broker để kiểm tra scope, authorization, schema, timeout/retry và ghi ToolCall/audit.
+
+Local MCP Server không truy cập Harness database và không thay đổi Run, checkpoint, Gate hoặc production state. Command/entrypoint của child process do application cố định; tool input không thể cung cấp shell command, binary path, working directory, arbitrary filesystem path hoặc URL.
 
 ## Ranh giới của M1 và M4
 
@@ -74,4 +76,6 @@ Orchestrator dừng tại `RUNNING_STEP / TOPIC_RESEARCH`. Trạng thái này ch
 
 ## Thực thi tool có kiểm soát
 
-Từ Phần 07, mọi tool request đi qua Tool Broker. Broker kiểm tra Run/AgentTask/ChannelContext cùng scope, giao của hai allowlist, JSON Schema, timeout, retry và idempotency trước khi gọi `ToolExecutor`. ToolCall và audit được persist trong PostgreSQL; Broker không thay đổi Run state. `ToolExecutor` vẫn chỉ là abstraction, chưa có MCP adapter hoặc external tool thật.
+Từ Phần 07, mọi tool request đi qua Tool Broker. Broker kiểm tra Run/AgentTask/ChannelContext cùng scope, giao của hai allowlist, JSON Schema, timeout, retry và idempotency trước khi gọi `ToolExecutor`. ToolCall và audit được persist trong PostgreSQL; Broker không thay đổi Run state.
+
+Từ Part 08, MCP adapter implement `ToolExecutor` và nối Broker với Local MCP Server deterministic. Tool Broker không import MCP implementation; MCP module phụ thuộc abstraction của Broker. MCP discovery không cấp quyền sử dụng tool và không có external system thật.

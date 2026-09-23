@@ -44,6 +44,8 @@ Gate ghi nhận loại điểm kiểm duyệt, trạng thái, hành động cầ
 
 `ToolDefinition` mô tả quyền cần thiết, timeout, retry, tính idempotent và khả năng tạo side effect. Từ Part 07, contract `tool-definition-1.1` bổ sung JSON Schema cho input/output để Tool Broker validate trước và sau execution. `ToolCall` ghi nhận một yêu cầu gọi công cụ cùng input, output hoặc lỗi.
 
+Part 08 tái sử dụng nguyên contract này cho ba local MCP tool. MCP protocol object không trở thành domain contract mới: `McpToolExecutor` normalize kết quả về plain structured object trước khi trả cho Tool Broker.
+
 ## Checkpoint
 
 Checkpoint là ảnh chụp dữ liệu của run tại một bước, gồm state, tham chiếu Artifact và correlation ID. Từ Phần 05, checkpoint có thể kèm `context_snapshot` tùy chọn chứa checksum metadata của ChannelContext. Field tùy chọn giữ tương thích với checkpoint cũ và không chứa toàn bộ nội dung Markdown.

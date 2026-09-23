@@ -24,7 +24,7 @@ Xem [Ranh giới kiến trúc](docs/architecture-boundaries.md) để hiểu rõ
 - [x] Phần 05 - Harness Run Orchestrator
 - [x] Phần 06 - Giao diện Agent Provider và FakeProvider
 - [x] Phần 07 - Tool Broker
-- [ ] Phần 08 - Công cụ MCP cục bộ
+- [x] Phần 08 - Công cụ MCP cục bộ
 - [ ] Phần 09 - Mini M2 và Gate 1
 - [ ] Phần 10 - Gemini Provider
 - [ ] Phần 11 - Checkpoint, tạm dừng, tiếp tục và khôi phục
@@ -53,6 +53,10 @@ Part 06 introduces Agent Runtime and a deterministic FakeProvider. No real AI AP
 ## Phạm vi Phần 07
 
 Part 07 introduces controlled tool execution through Tool Broker. No MCP or real external tool is connected yet. Broker kiểm tra trusted scope, authorization, JSON Schema, timeout, retry và idempotency; ToolCall cùng audit được persist atomically trong PostgreSQL. Xem [Tool Broker](docs/tool-broker.md) để biết chi tiết.
+
+## Phạm vi Phần 08
+
+Part 08 connects the Tool Broker to a deterministic local MCP server. The MCP server provides mock media and analytics capabilities only. No real external system or real LLM is connected yet. Mọi MCP-backed tool vẫn bắt buộc đi qua authorization, schema validation, timeout, retry, persistence và audit của Tool Broker. Xem [Local MCP Tools](docs/local-mcp-tools.md) để biết chi tiết.
 
 ## Chạy trên máy cục bộ
 
