@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AgentModule } from './agent/agent.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { DatabaseModule } from './database/database.module.js';
@@ -6,7 +7,12 @@ import { RunOrchestrationModule } from './harness/orchestrator/run-orchestration
 import { HarnessRuntimeModule } from './harness/runtime/harness-runtime.module.js';
 
 @Module({
-  imports: [DatabaseModule, HarnessRuntimeModule, RunOrchestrationModule],
+  imports: [
+    AgentModule,
+    DatabaseModule,
+    HarnessRuntimeModule,
+    RunOrchestrationModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
