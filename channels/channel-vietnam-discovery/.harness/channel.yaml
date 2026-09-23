@@ -1,0 +1,22 @@
+channel_id: channel-vietnam-discovery
+enabled: true
+timezone: Asia/Ho_Chi_Minh
+
+concurrency:
+  max_active_runs: 1
+
+autonomy:
+  level: L2
+
+required_gates:
+  - creative_brief
+  - draft_review
+  - release_package
+
+limits:
+  max_retries_per_step: 2
+
+allowed_tools:
+  - search_assets
+  - get_asset_metadata
+  - get_recent_analytics
